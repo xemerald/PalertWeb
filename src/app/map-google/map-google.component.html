@@ -1,0 +1,10 @@
+<div *ngIf="apiLoaded | async">
+    <google-map
+        height="100%"
+        width="100%"
+        (mapInitialized)="onMapReady($event)"
+        [options]="options"
+        #goolemap
+    >
+    </google-map>
+</div>

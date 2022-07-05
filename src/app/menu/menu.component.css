@@ -1,0 +1,120 @@
+.controls {
+	font-size: 15px;
+	border: 1px solid transparent;
+	box-sizing: border-box;
+	outline: none;
+}
+
+.panel {
+	float: left;
+	margin: 10px 0 0 12px;
+	background-color: #fff;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	border: 0px;
+	border-radius: 2px 2px 2px 2px;
+}
+
+#autobox {
+	float: left;
+	background-color: #fff;
+	padding: 0 11px 0 13px;
+	font-weight: 300;
+	text-overflow: ellipsis;
+	height: 32px;
+	width: 180px;
+}
+#switcher {
+	float: left;
+	background-color: #448aff;
+	border-radius: 2px 0 0 2px;
+	padding-top: 2px;
+	color: #fff;
+	font-weight: bold;
+	height: 32px;
+}
+#switcher:active {
+	background-color: #2979ff;
+}
+#reset {
+	float: left;
+	background-color: #fff;
+	border-radius: 0 2px 2px 0;
+	padding-top: 4px;
+	color: #ccc;
+	font-weight: bold;
+	height: 32px;
+}
+#reset:hover {
+	color: #448aff;
+}
+
+#menu, #searchlist {
+	float: none;
+	display: block;
+	margin-top: 50px;
+	background-color: #fff;
+}
+.menubutton {
+	display: block;
+	color: #000;
+	background-color: #fff;
+	border: none;
+	border-bottom: 1px solid #b3b3b3;
+	border-radius: 2px 2px 2px 2px;
+	font-weight: bold;
+	text-align: left;
+	height: 32px;
+	width: 255px;
+}
+#menu div button:last-child {
+	border-bottom: none;
+}
+.menubutton:hover, .listbutton:hover {
+	color: #448aff;
+}
+.menubutton:not(.listbutton):active {
+	background-color: #e0e0e0;
+}
+.listbutton {
+	width: auto;
+	padding: 0 5px 0 5px;
+}
+.listbutton span {
+	color: #b3b3b3;
+	font-size: 13px;
+}
+.icon {
+	padding: 0 5px 0 2px;
+	height: 15px;
+}
+
+.search-result {
+	display: block;
+	color: #b3b3b3;
+	background-color: #fff;
+	border: none;
+	border-radius: 2px 2px 2px 2px;
+	font-weight: 300;
+	font-size: 15px;
+	text-align: left;
+	height: 32px;
+	width: 255px;
+	white-space: nowrap;
+ 	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.search-title {
+	color: #000;
+}
+.search-detail {
+	font-size: 13px;
+	font-weight: 600;
+}
+.search-result:hover, .search-result:active {
+	background-color: #e0e0e0;
+}
+
+.material-icons.md-15 {
+	text-align: left;
+	font-size: 15px;
+}

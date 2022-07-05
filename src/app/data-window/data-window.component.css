@@ -1,0 +1,19 @@
+.contentbutton {
+	display: inline-block;
+	color: #fff;
+	background-color: #4d90fe;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	border-radius: 4px;
+    margin: 2px;
+	font-weight: bold;
+	font-size: 15px;
+	text-align: center;
+	height: 25px;
+}
+.contentbutton:active {
+	background-color: #2979ff;
+}
+.contentinput {
+	width:40px;
+}

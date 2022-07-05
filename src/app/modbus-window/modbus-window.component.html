@@ -1,0 +1,29 @@
+<h3><b>{{ title }}</b></h3>
+<table>
+	<tr *ngFor="let utility of utilities; let i = index">
+		<td><div [ngClass]="utility.status ? 'indicator' : 'indicator_not'" *ngIf="utility.type != 'F/W'"></div></td>
+		<td>{{utility.type}}:</td>
+		<ng-container *ngIf="!editFlag[i]">
+			<td>{{utility.value}}</td>
+			<td *ngIf="reachFlag">
+				<button class='contentbutton' *ngIf="utility.type != 'F/W'" (click)="switchUtilityEdit(i)">Edit</button>
+				<button class='contentbutton' *ngIf="utility.type == 'F/W'" (click)="writeUtility(i)">Upd</button>
+			</td>
+		</ng-container>
+		<ng-container *ngIf="editFlag[i]">
+			<td>
+				<input class='contentinput' [(ngModel)]="inputs[0]" type='number' max='255' min='0'>
+				<input class='contentinput' [(ngModel)]="inputs[1]" type='number' max='255' min='0'>
+				<input class='contentinput' [(ngModel)]="inputs[2]" type='number' max='255' min='0'>
+				<input class='contentinput' [(ngModel)]="inputs[3]" type='number' max='255' min='0'>
+			</td>
+			<td>
+				<button class='contentbutton' (click)="writeUtility(i)">Save</button>
+			</td>
+		</ng-container>
+	</tr>
+</table>
+<p align='right' *ngIf="reachFlag">
+	<button class='contentbutton' style='background-color: #80b1fe;' (click)="alertDemo(30);">Demo Int.3</button>
+	<button class='contentbutton' (click)="alertDemo(69);">Demo Int.6H</button>
+</p>

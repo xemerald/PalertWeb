@@ -1,0 +1,141 @@
+<div class="controls panel">
+	<button id="switcher" class="controls" (click)="menuSwitch = !menuSwitch;">
+		<i class="material-icons">menu</i>
+	</button>
+	<input #searchBox id="autobox" class="controls" type="text" placeholder="Search Box"
+		(input)="search(searchBox.value)"
+		(focus)="search(searchBox.value);menuSwitch=false;"
+		(blur)="search('')"
+		(keyup.escape)="search('')"
+	>
+	<button id="reset" class="controls" (click)="searchBox.value=''">
+		<i class="material-icons md-15">clear</i>
+	</button>
+</div>
+<div id="searchlist" class="controls panel">
+	<button *ngFor="let station of stations | async" class="search-result" (click)="selectStation(station.station); searchBox.value=station.locname;">
+		<img class="icon" src="{{selectStationMarker(station.station)}}">
+		<span class="search-title">{{station.station}}&nbsp;&nbsp;{{station.locname}}</span>
+		<span class="search-padding">&nbsp;&nbsp;</span>
+		<span class="search-detail">{{station.serial}}&nbsp;&nbsp;{{station.area}}</span>
+	</button>
+</div>
+<div id="menu" class="controls panel" *ngIf="menuSwitch" [ngSwitch]="menuStatus">
+	<div id="M1" *ngSwitchCase="0">
+		<button class="menubutton" (click)="menuStatus=1">
+			<i class="material-icons md-15">filter_list</i>&nbsp;&nbsp;
+			Filter
+		</button>
+		<button class="menubutton" (click)="menuStatus=2;startShake()">
+			<i class="material-icons md-15">map</i>&nbsp;&nbsp;
+			Shakemap
+		</button>
+		<button class="menubutton" (click)="openDownloadModal()">
+			<i class="material-icons md-15">file_download</i>&nbsp;&nbsp;
+			Download list
+		</button>
+		<button class="menubutton" (click)="positionService.showPosition()">
+			<i class="material-icons md-15">my_location</i>&nbsp;&nbsp;
+			Your position
+		</button>
+	</div>
+	<div id="M2" *ngSwitchCase="1">
+		<button class="menubutton" (click)="switchFilter(0)">Area</button>
+			<table id="F1" *ngIf="filterSwitch[0]">
+			<tr>
+				<td *ngFor="let iArea of areaService.areaInfo | slice:0:3">
+					<button class="menubutton listbutton" (click)="switchArea(iArea.english)">
+						<img class="icon" src="{{iArea.icon.url}}">{{iArea.chinese}} <span>{{iArea.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iArea of areaService.areaInfo | slice:3:6">
+					<button class="menubutton listbutton" (click)="switchArea(iArea.english)">
+						<img class="icon" src="{{iArea.icon.url}}">{{iArea.chinese}} <span>{{iArea.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iArea of areaService.areaInfo | slice:6:9">
+					<button class="menubutton listbutton" (click)="switchArea(iArea.english)">
+						<img class="icon" src="{{iArea.icon.url}}">{{iArea.chinese}} <span>{{iArea.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iArea of areaService.areaInfo | slice:9:12">
+					<button class="menubutton listbutton" (click)="switchArea(iArea.english)">
+						<img class="icon" src="{{iArea.icon.url}}">{{iArea.chinese}} <span>{{iArea.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iArea of areaService.areaInfo | slice:12:15">
+					<button class="menubutton listbutton" (click)="switchArea(iArea.english)">
+						<img class="icon" src="{{iArea.icon.url}}">{{iArea.chinese}} <span>{{iArea.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iArea of areaService.areaInfo | slice:15:18; let l=last">
+					<button class="menubutton listbutton" (click)="switchArea(iArea.english)">
+						<img class="icon" src="{{iArea.icon.url}}">{{iArea.chinese}} <span *ngIf="!l">{{iArea.count}}</span>
+					</button>
+				</td>
+			</tr>
+			</table>
+		<button class="menubutton" (click)="switchFilter(1)">Floor</button>
+			<table id="F2" *ngIf="filterSwitch[1]">
+			<tr>
+				<td *ngFor="let iFloor of floorService.floorInfo | slice:0:3">
+					<button class="menubutton listbutton" (click)="switchFloor(iFloor.value)">
+						<img class="icon" src="{{iFloor.icon.url}}">{{iFloor.tag}} <span>{{iFloor.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iFloor of floorService.floorInfo | slice:3:6">
+					<button class="menubutton listbutton" (click)="switchFloor(iFloor.value)">
+						<img class="icon" src="{{iFloor.icon.url}}">{{iFloor.tag}} <span>{{iFloor.count}}</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td *ngFor="let iFloor of floorService.floorInfo | slice:6:8; let l=last">
+					<button class="menubutton listbutton" (click)="switchFloor(iFloor.value)">
+						<img class="icon" src="{{iFloor.icon.url}}">{{iFloor.tag}} <span *ngIf="!l">{{iFloor.count}}</span>
+					</button>
+				</td>
+			</tr>
+			</table>
+		<button class="menubutton" (click)="switchFilter(2)">Status&nbsp;&nbsp;{{statusService.regularCount/statusService.totalCount | percent:'.2-2'}}</button>
+			<table id="F3" *ngIf="filterSwitch[2]">
+				<tr>
+					<td>
+						<button class="menubutton listbutton">
+							<img class="icon" src="{{statusService.statusIcons['regular'].url}}">
+							正常： {{statusService.regularCount | number}}
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button class="menubutton listbutton">
+							<img class="icon" src="{{statusService.statusIcons['broken'].url}}">
+							故障： {{statusService.totalCount - statusService.regularCount | number}}
+						</button>
+					</td>
+				</tr>
+			</table>
+		<button class="menubutton" (click)="menuStatus=0;resetFilter(true);">Back</button>
+	</div>
+	<div id="M3" *ngSwitchCase="2">
+		<button class="menubutton" (click)="switchShake(0)" [style.color]="selectShakeStatusColor(0)">Peak ground acceleration</button>
+		<button class="menubutton" (click)="switchShake(1)" [style.color]="selectShakeStatusColor(1)">Peak ground velocity</button>
+		<button class="menubutton" (click)="switchShake(2)" [style.color]="selectShakeStatusColor(2)">CWB 2020 Intensity Scale</button>
+		<button class="menubutton" (click)="switchShake(3)" [style.color]="selectShakeStatusColor(3)">Spectrum acceleration 0.3s</button>
+		<button class="menubutton" (click)="switchShake(4)" [style.color]="selectShakeStatusColor(4)">Spectrum acceleration 1.0s</button>
+		<button class="menubutton" (click)="menuStatus=0;endShake()">Back</button>
+	</div>
+</div>

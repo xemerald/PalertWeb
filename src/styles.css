@@ -1,0 +1,90 @@
+/* Master Styles */
+@import "~normalize.css/normalize.css";
+@import "~leaflet/dist/leaflet.css";
+@import "~leaflet.markercluster/dist/MarkerCluster.css";
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Marker Cluster Styles */
+.marker-cluster-0 {
+	background-color: rgba(215, 237, 226, 0.6);
+	border-radius: 25px;
+}
+.marker-cluster-0 div {
+	background-color: rgba(135, 201, 168, 0.6);
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
+.marker-cluster-0 span {
+	line-height: 40px;
+}
+
+.marker-cluster-1 {
+	background-color: rgba(250, 245, 224, 0.6);
+	border-radius: 28px;
+}
+.marker-cluster-1 div {
+	background-color: rgba(241, 226, 160, 0.6);
+	width: 45px;
+	height: 45px;
+	border-radius: 23px;
+}
+.marker-cluster-1 span {
+	line-height: 45px;
+}
+
+.marker-cluster-2 {
+	background-color: rgba(250, 234, 216, 0.6);
+	border-radius: 30px;
+}
+.marker-cluster-2 div {
+	background-color: rgba(241, 192, 137, 0.6);
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+}
+.marker-cluster-2 span {
+	line-height: 50px;
+}
+
+.marker-cluster-3 {
+	background-color: rgba(243, 209, 203, 0.6);
+	border-radius: 33px;
+}
+.marker-cluster-3 div {
+	background-color: rgba(218, 114, 96, 0.6);
+	width: 55px;
+	height: 55px;
+	border-radius: 28px;
+}
+.marker-cluster-3 span {
+	line-height: 55px;
+}
+
+.marker-cluster-4 {
+	background-color: rgba(219, 187, 187, 0.6);
+	border-radius: 35px;
+}
+.marker-cluster-4 div {
+	background-color: rgba(147, 50, 50, 0.6);
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+}
+.marker-cluster-4 span {
+	line-height: 60px;
+}
+
+.marker-cluster {
+	background-clip: padding-box;
+}
+.marker-cluster div {
+	margin-left: 5px;
+	margin-top: 5px;
+	text-align: center;
+	font: 12px;
+}

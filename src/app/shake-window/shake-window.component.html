@@ -1,0 +1,8 @@
+<h3 [style.color]="statusColor"><b>{{ title }}</b></h3>
+<h4 *ngIf="!readyFlag"><b>Loading...</b></h4>
+<table *ngIf="readyFlag">
+	<tr *ngFor="let groundMotion of groundMotions">
+		<td>{{groundMotion.valueType}}:</td>
+		<td>{{groundMotion.value | number:'.2-2'}}</td>
+	</tr>
+</table>
