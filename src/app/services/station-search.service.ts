@@ -26,10 +26,9 @@ export class StationSearchService {
 
     searchArea(term: string): Observable<StationExchange> {
         if (!term.trim()) {
-            let stationExchange: StationExchange = {
+            return of({
                 tag: '', total: 0, station: []
-            }
-            return of(stationExchange);
+            });
         }
         else {
             return this.http
@@ -39,10 +38,9 @@ export class StationSearchService {
 
     searchFloor(term: string): Observable<StationExchange> {
         if (!term.trim()) {
-            let stationExchange: StationExchange = {
+            return of({
                 tag: '', total: 0, station: []
-            }
-            return of(stationExchange);
+            });
         }
         else {
             return this.http

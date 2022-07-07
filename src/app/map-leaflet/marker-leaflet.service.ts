@@ -205,7 +205,7 @@ export class MarkerLeafletService implements MarkerService {
 			iconAnchor: icon ? icon.anchor : NormalIcon.anchor,
 		});
 
-		if (index != null) {
+		if (index !== undefined) {
 			this.markers[index].setIcon(_icon);
 		}
 		else {
@@ -216,18 +216,18 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	getMarkersIcon(index?: number): string {
-		if (index == null) {
+		if (index === undefined) {
 			return NormalIcon.url;
 		}
 		else {
 			let icon = this.markers[index].getIcon();
-			if (icon == null) return NormalIcon.url;
+			if (icon === undefined) return NormalIcon.url;
 			else return icon.options.iconUrl;
 		}
 	}
 
 	checkMarkersVisbility(index?: number): boolean {
-		if (index != null) {
+		if (index !== undefined) {
 			return this.markers[index].getVisible();
 		}
 		else {
@@ -236,7 +236,7 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	setMarkersVisbility(visibility: boolean, index?: number): number {
-		if (index != null) {
+		if (index !== undefined) {
 			if (this.markers[index].getVisible() != visibility) {
 				this.markers[index].setVisible(visibility);
 			}
@@ -258,7 +258,7 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	checkMarkersStatus(index?: number): boolean {
-		if (index != null) {
+		if (index !== undefined) {
 			return this.markers[index].getStatus();
 		}
 		else {
@@ -267,7 +267,7 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	setMarkersStatus(status: boolean, index?: number): number {
-		if (index != null) {
+		if (index !== undefined) {
 			this.markers[index].setStatus(status);
 			return index;
 		}
@@ -281,7 +281,7 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	getMarkersTitle(index?: number): string[] {
-		if (index != null) {
+		if (index !== undefined) {
 			return this.markers[index].options.title;
 		}
 		else {
@@ -290,7 +290,7 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	setPosMarkers(map: any, pos: GeolocationPosition): void {
-		if (this.posMarker != null) {
+		if (this.posMarker !== undefined) {
 			let point = new L.LatLng(
 				pos.coords.latitude,
 				pos.coords.longitude

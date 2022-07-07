@@ -16,7 +16,7 @@ export interface AreaInfo {
 };
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class AreaService {
 	readonly areaInfo: AreaInfo[] = [];
@@ -37,15 +37,15 @@ export class AreaService {
 		}
 	}
 
-    getAllArea() {
+	getAllArea() {
 		for (let area in AreaNameCht) {
+			let _area = AreaName[area as keyof typeof AreaName];
 			if (area.match("allarea")) {
-                continue;
-            }
+				continue;
+			}
 			else {
 				lastValueFrom(this.stationSearchService.searchArea(area))
 					.then(result => {
-                        let _area = AreaName[area as keyof typeof AreaName];
 						this.areaInfo[_area].count = result.total;
 						result.station.forEach(station => {
 							this.markerService.setMarkersIcon(
@@ -61,8 +61,8 @@ export class AreaService {
 	areaCheck(area: string) {
 		if (area.match("allarea")) {
 			this.markerService.revertAllMarkersVisibility();
-		} 
-        else {
+		}
+		else {
 			lastValueFrom(this.stationSearchService.searchArea(area))
 				.then(result => {
 					let visibility = result.station.every(station =>
