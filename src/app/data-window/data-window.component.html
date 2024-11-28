@@ -1,31 +1,31 @@
 <h3><b>{{ title }}</b></h3>
 <div *ngIf="_station">
-    <div *ngIf="editFlag">
-        <table>
-            <tr><td>站名：</td><td><input type='text' [(ngModel)]="_station.locname"></td></tr>
-            <tr><td>區域：</td><td><input type='text' [(ngModel)]="_station.area"></td></tr>
-            <tr><td>站碼：</td><td><input type='text' [(ngModel)]="_station.station"></td></tr>
-            <tr><td>序號：</td><td><input type='number' [(ngModel)]="_station.serial"></td></tr>
-            <tr><td>樓層：</td><td><input type='number' [(ngModel)]="_station.floors"></td></tr>
-            <tr><td>經度：</td><td><input type='number' [(ngModel)]="_station.longitude"></td></tr>
-            <tr><td>緯度：</td><td><input type='number' [(ngModel)]="_station.latitude"></td></tr>
-        </table>
-        <p align='right'>
-            <button class='contentbutton' (click)="editFlag=false">Save</button>
-        </p>
-    </div>
-    <div *ngIf="!editFlag">
-        <table>
-            <tr><td>區域：</td><td>{{_station.area}}</td></tr>
-            <tr><td>站碼：</td><td>{{_station.station}}</td></tr>
-            <tr><td>序號：</td><td>{{_station.serial}}</td></tr>
-            <tr><td>樓層：</td><td>{{_station.floors}}</td></tr>
-            <tr><td>經度：</td><td>{{_station.longitude}}</td></tr>
-            <tr><td>緯度：</td><td>{{_station.latitude}}</td></tr>
-        </table>
-        <p align='right'>
-            <button class='contentbutton'>Wave</button>
-            <button class='contentbutton' *ngIf="!editFlag" (click)="editFlag=true">Edit</button>
-        </p>
-    </div>
+	<div *ngIf="editFlag">
+		<table>
+			<tr><td>站名：</td><td><input type='text' [(ngModel)]="_station.locname"></td></tr>
+			<tr><td>區域：</td><td><input type='text' [(ngModel)]="_station.area"></td></tr>
+			<tr><td>站碼：</td><td><input type='text' [(ngModel)]="_station.station"></td></tr>
+			<tr><td>序號：</td><td><input type='number' [(ngModel)]="_station.serial"></td></tr>
+			<tr><td>樓層：</td><td><input type='number' [(ngModel)]="_station.floors"></td></tr>
+			<tr><td>經度：</td><td><input type='number' [(ngModel)]="_station.longitude"></td></tr>
+			<tr><td>緯度：</td><td><input type='number' [(ngModel)]="_station.latitude"></td></tr>
+		</table>
+		<p align='right'>
+			<button class='contentbutton' (click)="editFlag=false">Save</button>
+		</p>
+	</div>
+	<div *ngIf="!editFlag">
+		<table>
+			<tr><td>區域：</td><td>{{_station.area}}</td></tr>
+			<tr><td>站碼：</td><td>{{_station.station}}</td></tr>
+			<tr><td>序號：</td><td>{{_station.serial}}</td></tr>
+			<tr><td>樓層：</td><td>{{_station.floors}}</td></tr>
+			<tr><td>經度：</td><td>{{_station.longitude}}</td></tr>
+			<tr><td>緯度：</td><td>{{_station.latitude}}</td></tr>
+		</table>
+		<p align='right'>
+			<button class='contentbutton'>Wave</button>
+			<button class='contentbutton' *ngIf="!editFlag" (click)="editFlag=true">Edit</button>
+		</p>
+	</div>
 </div>

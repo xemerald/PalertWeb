@@ -14,27 +14,27 @@ import { ModbusWindowComponent } from './modbus-window/modbus-window.component';
 import { ShakeWindowComponent } from './shake-window/shake-window.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        MenuComponent,
-        ModalComponent,
-        MapLeafletComponent,
-        MapGoogleComponent,
-        DataWindowComponent,
-        ModbusWindowComponent,
-        ShakeWindowComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        HttpClientJsonpModule,
-        GoogleMapsModule
-    ],
-    exports: [
-        MapGoogleComponent
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		MenuComponent,
+		ModalComponent,
+		MapLeafletComponent,
+		MapGoogleComponent,
+		DataWindowComponent,
+		ModbusWindowComponent,
+		ShakeWindowComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpClientModule,
+		HttpClientJsonpModule,
+		GoogleMapsModule
+	],
+	exports: [
+		MapGoogleComponent
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

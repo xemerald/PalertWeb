@@ -1,0 +1,22 @@
+.gm-type {
+	font-weight: bold;
+	text-align: left;
+}
+.gm-value {
+	width: 120px;
+	font-weight: bold;
+	text-align: center;
+	color: #ffffff;
+	border: 1px solid transparent;
+	border-radius: 10px 10px 10px 10px;
+}
+.gm-unit {
+	font-size: 9px;
+}
+.timestamp {
+	color: #808080;
+	height: 20px;
+	font-weight: bold;
+	font-size: 10px;
+	text-align: center;
+}

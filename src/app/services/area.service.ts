@@ -74,7 +74,7 @@ export class AreaService {
 							this.stationsService.getIndexByStationCode(station)
 						)
 					);
-				});
+			});
 		}
 	}
 }

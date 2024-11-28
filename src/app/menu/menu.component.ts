@@ -15,110 +15,111 @@ import { PositionService } from '../services/position.service';
 import { Station } from '../station';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.css']
+	selector: 'app-menu',
+	templateUrl: './menu.component.html',
+	styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-    stations!: Observable<Station[]>;
-    menuSwitch: boolean = false;
-    menuStatus: number = 0;
-    filterSwitch: boolean[] = [false, false, false];
+	stations!: Observable<Station[]>;
+	menuSwitch: boolean = false;
+	menuStatus: number = 0;
+	shakeIndex: number = -1;
+	filterSwitch: boolean[] = [false, false, false];
 
-    private searchTerms = new Subject<string>();
+	private searchTerms = new Subject<string>();
 
-    constructor(
-        private stationsService: StationsService,
+	constructor(
+		private stationsService: StationsService,
 		private stationSearchService: StationSearchService,
-        private mapService: FocusMapService,
-        private markerService: FocusMarkerService,
-        public areaService: AreaService,
-        public floorService: FloorService,
-        public statusService: StatusService,
-        private shakeService: ShakeService,
-        private modalCtrlService: ModalCtrlService,
-        public positionService: PositionService
-    ) { }
+		private mapService: FocusMapService,
+		private markerService: FocusMarkerService,
+		public areaService: AreaService,
+		public floorService: FloorService,
+		public statusService: StatusService,
+		public shakeService: ShakeService,
+		private modalCtrlService: ModalCtrlService,
+		public positionService: PositionService
+	) { }
 
-    /**
-     * 
-     */
-    ngOnInit(): void {
-        this.stations = this.searchTerms.pipe(
-            debounceTime(200),
-            distinctUntilChanged(),
-            switchMap((term: string) => this.stationSearchService.search(term)),
-        )
-    }
+/**
+ *
+ */
+	ngOnInit(): void {
+		this.stations = this.searchTerms.pipe(
+			debounceTime(200),
+			distinctUntilChanged(),
+			switchMap((term: string) => this.stationSearchService.search(term)),
+		)
+	}
 
-    /**
-     * 
-     * @param term 
-     */
-    search(term: string): void {
-        this.searchTerms.next(term);
-    }
+/**
+ *
+ * @param term
+ */
+	search(term: string): void {
+		this.searchTerms.next(term);
+	}
 
-    /**
-     * 
-     * @param station 
-     */
-    selectStation(station: string): void {
-        this.searchTerms.next('');
+/**
+ *
+ * @param station
+ */
+	selectStation(station: string): void {
+		this.searchTerms.next('');
 		let position = this.markerService.pickMarker(
-            this.mapService.getNativeMap(), 
-            this.stationsService.getIndexByStationCode(station)
-        );
+			this.mapService.getNativeMap(),
+			this.stationsService.getIndexByStationCode(station)
+		);
 		this.mapService.panMapTo(position, 15);
-    }
+	}
 
-    /**
-     * 
-     * @param station 
-     * @returns 
-     */
-    selectStationMarker(station: string): string {
+/**
+ *
+ * @param station
+ * @returns
+ */
+	selectStationMarker(station: string): string {
 		if (this.menuStatus < 2) {
 			return this.markerService.getMarkersIcon(this.stationsService.getIndexByStationCode(station));
 		}
 		else {
 			return this.markerService.getMarkersIcon();
 		}
-    }
+	}
 
-    /* Filter function */
-    /**
-     * 
-     * @param n 
-     */
-    switchFilter(n: number): void {
-        this.resetFilter(false);
+/* Filter function */
+/**
+ *
+ * @param n
+ */
+	switchFilter(n: number): void {
+		this.resetFilter(false);
 		switch (n) {
-			case 0: {
-				this.areaService.getAllArea();
-				break;
-			}
-			case 1: {
-				this.floorService.getAllFloor();
-				break;
-			}
-			case 2: {
-				this.statusService.startConnection();
-				break;
-			}
-			default: {
-				break;
-			}
+		case 0: {
+			this.areaService.getAllArea();
+			break;
+		}
+		case 1: {
+			this.floorService.getAllFloor();
+			break;
+		}
+		case 2: {
+			this.statusService.startConnection();
+			break;
+		}
+		default: {
+			break;
+		}
 		}
 		this.filterSwitch[n] = true;
-    }
+	}
 
-    /**
-     * 
-     * @param toNormal 
-     */
-    resetFilter(toNormal: boolean): void {
-        if ( toNormal ) {
+/**
+ *
+ * @param toNormal
+ */
+	resetFilter(toNormal: boolean): void {
+		if ( toNormal ) {
 			this.markerService.setMarkersIcon();
 			this.markerService.switchCluster(true);
 		}
@@ -132,64 +133,64 @@ export class MenuComponent implements OnInit {
 		for (let i=0; i<this.filterSwitch.length; i++) {
 			this.filterSwitch[i] = false;
 		}
-    }
+	}
 
-    /**
-     * 
-     * @param area
-     */
-    switchArea(area: string): void {
-        this.areaService.areaCheck(area);
-    }
+/**
+ *
+ * @param area
+ */
+	switchArea(area: string): void {
+		this.areaService.areaCheck(area);
+	}
 
-    /**
-     * 
-     * @param floor 
-     */
-    switchFloor(floor: string): void {
-        this.floorService.floorCheck(floor);
-    }
+/**
+ *
+ * @param floor
+ */
+	switchFloor(floor: string): void {
+		this.floorService.floorCheck(floor);
+	}
 
-    /* Shakemap function */
-    /**
-     * 
-     */
-    startShake(): void {
-        this.shakeService.startShakeMap();
+/* Shakemap function */
+/**
+ *
+ */
+	startShake(): void {
+		this.shakeService.startShakeMap();
 		this.markerService.resetInfoWindow();
 		this.markerService.bindShakeWindow(this.mapService.getNativeMap());
-    }
+	}
 
-    /**
-     * 
-     * @param n 
-     */
-    switchShake(n: number): void {
+/**
+ *
+ * @param n
+ */
+	switchShake(n: number): void {
 		this.shakeService.startConnection(n);
-    }
+	}
 
-    /**
-     * 
-     * @param n 
-     * @returns 
-     */
-    selectShakeStatusColor(n: number): string {
-        return this.shakeService.getStatusColor(n);
-    }
+/**
+ *
+ * @param n
+ * @returns
+ */
+	selectShakeStatusColor(n: number): string {
+		return this.shakeService.getStatusColor(n);
+	}
 
-    /**
-     * 
-     */
-    endShake(): void {
-        this.markerService.resetInfoWindow();
+/**
+ *
+ */
+	endShake(): void {
+		this.markerService.resetInfoWindow();
 		this.shakeService.endShakeMap();
-    }
+	}
 
-    /* Download list */
-    /**
-     * 
-     */
-    openDownloadModal(): void {
+/* Download list */
+/**
+ *
+ */
+	openDownloadModal(): void {
 		this.modalCtrlService.openModal();
-    }
+	}
 }

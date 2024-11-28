@@ -15,12 +15,12 @@ export interface FloorInfo {
 };
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class FloorService {
 	readonly floorInfo: FloorInfo[] = [];
 
-    constructor (
+	constructor (
 		private stationsService: StationsService,
 		private stationSearchService: StationSearchService,
 		private markerService: FocusMarkerService
@@ -36,15 +36,15 @@ export class FloorService {
 		}
 	}
 
-    getAllFloor() {
+	getAllFloor() {
 		for (let floor in FloorValue) {
 			if (FloorValue[floor].match("allfloor")) {
-                continue;
-            }
+				continue;
+			}
 			else {
 				lastValueFrom(this.stationSearchService.searchFloor(FloorValue[floor]))
 					.then(result => {
-                        let _floor = FloorTag[floor as keyof typeof FloorTag]
+						let _floor = FloorTag[floor as keyof typeof FloorTag]
 						this.floorInfo[_floor].count = result.total;
 						result.station.forEach(station => {
 							this.markerService.setMarkersIcon(
@@ -72,7 +72,7 @@ export class FloorService {
 							this.stationsService.getIndexByStationCode(station)
 						)
 					);
-				});
+			});
 		}
 	}
 }

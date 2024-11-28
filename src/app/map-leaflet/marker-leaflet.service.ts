@@ -12,27 +12,27 @@ import { ModbusWindowComponent } from '../modbus-window/modbus-window.component'
 import { NormalIcon, PosIcon }  from '../icon';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class MarkerLeafletService implements MarkerService {
-    private markers: Array<any> = [];
+	private markers: Array<any> = [];
 	private posMarker: any = null;
 	private infoWindow: any = null;
 	private markerCluster: any = null;
 	private infoWindowObserver: any = null;
-    private viewContainerRef!: ViewContainerRef;
+	private viewContainerRef!: ViewContainerRef;
 
 	constructor(
 		private stationsService: StationsService,
 		private mapService: MapLeafletService,
-        private infoWindowFactory: InfoWindowFactory
+		private infoWindowFactory: InfoWindowFactory
 	) {}
 
 	initialize(map: any, viewContainerRef: ViewContainerRef): void {
-    /* */
-        this.viewContainerRef = viewContainerRef;
 	/* */
-        (function(this: any) {
+		this.viewContainerRef = viewContainerRef;
+	/* */
+		(function(this: any) {
 		/* */
 			this.status = new Boolean(false);
 			this.setStatus = function(input: boolean) {
@@ -66,7 +66,7 @@ export class MarkerLeafletService implements MarkerService {
 		this.infoWindow = new L.Popup({
 			minWidth: 128,
 			maxWidth: 320,
-            autoPan: false
+			autoPan: false
 		});
 	/* */
 		this.infoWindowObserver = new MutationObserver( () => this.infoWindow.update() );
@@ -155,7 +155,7 @@ export class MarkerLeafletService implements MarkerService {
 								component: DataWindowComponent,
 								data: data
 							};
-                            this.infoWindowFactory.destroyWindow();
+							this.infoWindowFactory.destroyWindow();
 							this.openInfoWindow(
 								map, marker, this.infoWindowFactory.createWindow(infoWindowItem, this.viewContainerRef)
 							);
@@ -182,8 +182,8 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	pickMarker(map: any, index: number): any {
-        if (index < 0) 
-            return [0, 0];
+		if (index < 0)
+			return [0, 0];
 
 		let position = this.markers[index].getLatLng();
 
@@ -312,36 +312,36 @@ export class MarkerLeafletService implements MarkerService {
 	}
 
 	initialCluster(map: any): void {
-        this.markerCluster = L.markerClusterGroup({
-            showCoverageOnHover: false,
-            spiderfyOnMaxZoom: false,
-            disableClusteringAtZoom: 11,
-            maxClusterRadius: 70,
-            iconCreateFunction: cluster => {
-                let className = 'marker-cluster-';
-                let size = 50;
-                let index = 0;
-                let count = cluster.getChildCount();
-                let dv = count;
+		this.markerCluster = L.markerClusterGroup({
+			showCoverageOnHover: false,
+			spiderfyOnMaxZoom: false,
+			disableClusteringAtZoom: 11,
+			maxClusterRadius: 70,
+			iconCreateFunction: cluster => {
+				let className = 'marker-cluster-';
+				let size = 50;
+				let index = 0;
+				let count = cluster.getChildCount();
+				let dv = count;
 
-                while (dv !== 0) {
-                    dv = parseInt(String(dv/5), 10);
-                    index++;
-                }
+				while (dv !== 0) {
+					dv = parseInt(String(dv/5), 10);
+					index++;
+				}
 
-                index = Math.min(index, 5) - 1;
-                className += String(index);
-                size += index * 5;
-                return L.divIcon({
-                    html: '<div><span><b>' + count + '</b></span></div>',
-                    className: 'marker-cluster ' + className,
-                    iconSize: L.point(size, size)
-                });
-            }
-        });
-        this.markerCluster
-            .addLayers(this.markers)
-            .addTo(map);
+				index = Math.min(index, 5) - 1;
+				className += String(index);
+				size += index * 5;
+				return L.divIcon({
+					html: '<div><span><b>' + count + '</b></span></div>',
+					className: 'marker-cluster ' + className,
+					iconSize: L.point(size, size)
+				});
+			}
+		});
+		this.markerCluster
+			.addLayers(this.markers)
+			.addTo(map);
 	}
 
 	switchCluster(sw: boolean): void {
@@ -353,10 +353,10 @@ export class MarkerLeafletService implements MarkerService {
 			this.markerCluster.addLayers(this.markers);
 		}
 		else {
-            this.markerCluster.clearLayers();
-            for (let i = 0, len = this.markers.length; i < len; i++) {
-                this.markers[i].addTo(this.mapService.getNativeMap());
-            }
+			this.markerCluster.clearLayers();
+			for (let i = 0, len = this.markers.length; i < len; i++) {
+				this.markers[i].addTo(this.mapService.getNativeMap());
+			}
 		}
 	}
 }

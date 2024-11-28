@@ -64,7 +64,7 @@
 	font-weight: bold;
 	text-align: left;
 	height: 32px;
-	width: 255px;
+	width: 240px;
 }
 #menu div button:last-child {
 	border-bottom: none;
@@ -74,6 +74,15 @@
 }
 .menubutton:not(.listbutton):active {
 	background-color: #e0e0e0;
+}
+.menubutton input {
+	font-weight: bold;
+	text-align: center;
+	border: 1px solid #b3b3b3;
+	border-radius: 2px 2px 2px 2px;
+	width: 50px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .listbutton {
 	width: auto;
@@ -98,9 +107,9 @@
 	font-size: 15px;
 	text-align: left;
 	height: 32px;
-	width: 255px;
+	width: 240px;
 	white-space: nowrap;
- 	overflow: hidden;
+	overflow: hidden;
 	text-overflow: ellipsis;
 }
 .search-title {

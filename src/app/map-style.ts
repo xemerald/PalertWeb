@@ -20,7 +20,8 @@ export const MapStyles: {[key: string]: any} = {
 		leaflet: {
 			url: 'https://wmts.nlsc.gov.tw/wmts/EMAP6/default/GoogleMapsCompatible/{z}/{y}/{x}.png',
 			options: {
-				attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank" rel="noopener noreferrer">National Land Surveying and Mapping Center, MOI, R.O.C</a>'
+				attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank" rel="noopener noreferrer">National Land Surveying and Mapping Center, MOI, R.O.C</a>',
+				maxZoom: 18
 			}
 		}
 	},
@@ -52,7 +53,8 @@ export const MapStyles: {[key: string]: any} = {
 		leaflet: {
 			url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
 			options: {
-				attribution: 'Tiles &copy; <a href="https://www.esri.com/en-us/home" target="_blank" rel="noopener noreferrer">Esri</a> & <abbr title="DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community">Partners</abbr>'
+				attribution: 'Tiles &copy; Esri, DeLorme, NAVTEQ, TomTom, Intermap, and others contributors',
+				maxZoom: 18
 			}
 		}
 	}

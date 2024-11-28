@@ -13,9 +13,9 @@ interface Utility {
 };
 
 @Component({
-  selector: 'app-modbus-window',
-  templateUrl: './modbus-window.component.html',
-  styleUrls: ['./modbus-window.component.css']
+	selector: 'app-modbus-window',
+	templateUrl: './modbus-window.component.html',
+	styleUrls: ['./modbus-window.component.css']
 })
 export class ModbusWindowComponent implements OnInit, OnDestroy, InfoWindowComponent {
 	@Input() data: any;
@@ -29,8 +29,8 @@ export class ModbusWindowComponent implements OnInit, OnDestroy, InfoWindowCompo
 
 	private station!: string;
 	private apiURL!: string;
-    
-    constructor(
+
+	constructor(
 		private http: HttpClient,
 		private stationsService: StationsService
 	) {
@@ -40,19 +40,19 @@ export class ModbusWindowComponent implements OnInit, OnDestroy, InfoWindowCompo
 		];
 	}
 
-    ngOnInit(): void {
-        this.index = this.data.index;
+	ngOnInit(): void {
+		this.index = this.data.index;
 		this.title = this.data.title;
 		this.stationsService.getStationCodeByIndex(this.index).then( station => {
 			this.station = station;
 			this.loadUtility(this.station);
 		});
-    }
-    
-    ngOnDestroy(): void {
-        this.utilities = []
-    }
-    
+	}
+
+	ngOnDestroy(): void {
+		this.utilities = []
+	}
+
 	loadUtility(station: string, timeout?: number): void {
 		let url = this.apiURL + `/modbus_fetch.php?station=${station}&timeout=${timeout}`;
 		lastValueFrom(this.http.get<Utility[]>(url)).then(

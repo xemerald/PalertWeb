@@ -1,8 +1,15 @@
 <h3 [style.color]="statusColor"><b>{{ title }}</b></h3>
-<h4 *ngIf="!readyFlag"><b>Loading...</b></h4>
+<h4 class="gm-type" *ngIf="!readyFlag"><b>Loading...</b></h4>
 <table *ngIf="readyFlag">
-	<tr *ngFor="let groundMotion of groundMotions">
-		<td>{{groundMotion.valueType}}:</td>
-		<td>{{groundMotion.value | number:'.2-2'}}</td>
-	</tr>
+	<tbody>
+		<tr *ngFor="let groundMotion of groundMotions">
+			<td class="gm-type">{{groundMotion.valueType}}.</td>
+			<td class="gm-value" [style.background-color]="groundMotion.color">{{groundMotion.value | number:'.2-2'}} <span class="gm-unit">{{groundMotion.unit}}</span></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="2" class="timestamp">{{timestamp | date: 'yyyy-MM-dd HH:mm:ss O'}}</td>
+		</tr>
+	</tfoot>
 </table>

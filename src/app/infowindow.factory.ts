@@ -9,25 +9,25 @@ export interface InfoWindowComponent {
 }
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class InfoWindowFactory {
-  	private compRef?: ComponentRef<InfoWindowComponent>;
+	private compRef?: ComponentRef<InfoWindowComponent>;
 
 	constructor ( ) { }
 
 	createWindow(infoWindowItem: InfoWindowItem, viewContainerRef: ViewContainerRef): HTMLElement {
 		let div = document.createElement('div');
 
-        if (this.compRef) this.compRef.destroy();
+		if (this.compRef) this.compRef.destroy();
 
-        this.compRef = viewContainerRef.createComponent(infoWindowItem.component);
-        this.compRef.instance.data = infoWindowItem.data;
-        this.compRef.onDestroy(() => {
-            viewContainerRef.clear();
-        });
+		this.compRef = viewContainerRef.createComponent(infoWindowItem.component);
+		this.compRef.instance.data = infoWindowItem.data;
+		this.compRef.onDestroy(() => {
+			viewContainerRef.clear();
+		});
 
-        div.appendChild(this.compRef.location.nativeElement);
+		div.appendChild(this.compRef.location.nativeElement);
 
 		return div;
 	}

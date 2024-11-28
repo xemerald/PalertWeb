@@ -5,10 +5,10 @@ import { StationsService } from './stations.service';
 import { StatusIcon } from '../icon';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class StatusService {
-    private url!: string;
+	private url!: string;
 	private protocol!: string;
 	private webSocket!: WebSocket;
 
@@ -16,18 +16,22 @@ export class StatusService {
 	public seqNumber: number = 0;
 	public regularCount: number = 0;
 	public totalCount: number = 1;
-    readonly statusIcons: typeof StatusIcon = StatusIcon;
+	public timestamp: Date = new Date();
+	readonly statusIcons: typeof StatusIcon = StatusIcon;
 
+/* */
 	constructor(
 		private markerService: FocusMarkerService,
 		private stationsService: StationsService
 	) {
-		this.url = "ws://shake.p-alert.tw:9999";
+		//this.url = "ws://shake.p-alert.tw:9999";
+		this.url = "ws://127.0.0.1:9999";
 		this.protocol = "station-status-protocol";
 		this.maxInt = Math.pow(2, 32) - 1; /* The maximum of 4 bytes unsigned integer */
 	}
 
-    startConnection() {
+/* */
+	startConnection() {
 		this.closeConnection();
 
 		this.webSocket = new WebSocket(this.url, this.protocol);
@@ -49,28 +53,36 @@ export class StatusService {
 
 		this.webSocket.onmessage = (event) => {
 			if (event.data instanceof ArrayBuffer) {
-				let status = new Uint32Array(event.data);
+				let datatime = new Float64Array(event.data, 0, 1);
+				let status   = new Uint32Array(event.data, 8);
 
 				if (status[0] === this.seqNumber) {
+				/* */
+					this.timestamp = new Date(datatime[0] * 1000.0);
+				/* */
 					for (let i = 1, len = status.length; i < len; i++) {
 						if (this.markerService.checkMarkersStatus(status[i])) {
 							this.markerService.setMarkersStatus(false, status[i]);
 							this.markerService.setMarkersIcon(status[i], this.statusIcons['broken']);
 							this.regularCount--;
-						} 
-                        else {
+						}
+						else {
 							this.markerService.setMarkersStatus(true, status[i]);
 							this.markerService.setMarkersIcon(status[i], this.statusIcons['regular']);
 							this.regularCount++;
 						}
 					}
-					if (this.seqNumber === this.maxInt) this.seqNumber = 0;
-					else this.seqNumber++;
-				} else {
+				/* */
+					if (this.seqNumber === this.maxInt)
+						this.seqNumber = 0;
+					else
+						this.seqNumber++;
+				}
+				else {
 					this.webSocket.close();
 					this.startConnection();
 				}
-			};
+			}
 		}
 	}
 

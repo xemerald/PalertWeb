@@ -23,24 +23,27 @@
 <div id="menu" class="controls panel" *ngIf="menuSwitch" [ngSwitch]="menuStatus">
 	<div id="M1" *ngSwitchCase="0">
 		<button class="menubutton" (click)="menuStatus=1">
-			<i class="material-icons md-15">filter_list</i>&nbsp;&nbsp;
+			<i class="material-icons md-15">filter_list</i>&nbsp;
 			Filter
 		</button>
 		<button class="menubutton" (click)="menuStatus=2;startShake()">
-			<i class="material-icons md-15">map</i>&nbsp;&nbsp;
+			<i class="material-icons md-15">map</i>&nbsp;
 			Shakemap
 		</button>
 		<button class="menubutton" (click)="openDownloadModal()">
-			<i class="material-icons md-15">file_download</i>&nbsp;&nbsp;
+			<i class="material-icons md-15">file_download</i>&nbsp;
 			Download list
 		</button>
 		<button class="menubutton" (click)="positionService.showPosition()">
-			<i class="material-icons md-15">my_location</i>&nbsp;&nbsp;
+			<i class="material-icons md-15">my_location</i>&nbsp;
 			Your position
 		</button>
 	</div>
 	<div id="M2" *ngSwitchCase="1">
-		<button class="menubutton" (click)="switchFilter(0)">Area</button>
+		<button class="menubutton" (click)="switchFilter(0)">
+			<i class="material-icons md-15">south_america</i>&nbsp;
+			Area
+		</button>
 			<table id="F1" *ngIf="filterSwitch[0]">
 			<tr>
 				<td *ngFor="let iArea of areaService.areaInfo | slice:0:3">
@@ -85,7 +88,10 @@
 				</td>
 			</tr>
 			</table>
-		<button class="menubutton" (click)="switchFilter(1)">Floor</button>
+		<button class="menubutton" (click)="switchFilter(1)">
+			<i class="material-icons md-15">apartment</i>&nbsp;
+			Floor
+		</button>
 			<table id="F2" *ngIf="filterSwitch[1]">
 			<tr>
 				<td *ngFor="let iFloor of floorService.floorInfo | slice:0:3">
@@ -109,7 +115,10 @@
 				</td>
 			</tr>
 			</table>
-		<button class="menubutton" (click)="switchFilter(2)">Status&nbsp;&nbsp;{{statusService.regularCount/statusService.totalCount | percent:'.2-2'}}</button>
+		<button class="menubutton" (click)="switchFilter(2)">
+			<i class="material-icons md-15">query_stats</i>&nbsp;
+			Status&nbsp;&nbsp;{{statusService.regularCount/statusService.totalCount | percent:'.2-2'}}
+		</button>
 			<table id="F3" *ngIf="filterSwitch[2]">
 				<tr>
 					<td>
@@ -127,15 +136,50 @@
 						</button>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<button class="menubutton listbutton" font-size=8>
+							<i class="material-icons md-15">update</i>&nbsp;
+							{{statusService.timestamp | date: 'yyyy-MM-dd HH:mm:ss O'}}
+						</button>
+					</td>
+				</tr>
 			</table>
-		<button class="menubutton" (click)="menuStatus=0;resetFilter(true);">Back</button>
+		<button class="menubutton" (click)="menuStatus=0;resetFilter(true);">
+			<i class="material-icons md-15">arrow_back</i>&nbsp;
+			Back
+		</button>
 	</div>
 	<div id="M3" *ngSwitchCase="2">
-		<button class="menubutton" (click)="switchShake(0)" [style.color]="selectShakeStatusColor(0)">Peak ground acceleration</button>
-		<button class="menubutton" (click)="switchShake(1)" [style.color]="selectShakeStatusColor(1)">Peak ground velocity</button>
-		<button class="menubutton" (click)="switchShake(2)" [style.color]="selectShakeStatusColor(2)">CWB 2020 Intensity Scale</button>
-		<button class="menubutton" (click)="switchShake(3)" [style.color]="selectShakeStatusColor(3)">Spectrum acceleration 0.3s</button>
-		<button class="menubutton" (click)="switchShake(4)" [style.color]="selectShakeStatusColor(4)">Spectrum acceleration 1.0s</button>
-		<button class="menubutton" (click)="menuStatus=0;endShake()">Back</button>
+		<button class="menubutton" (click)="menuStatus=3;shakeIndex=i;switchShake(i)" *ngFor="let stype of shakeService.shakeTypes; let i = index">
+			<i class="material-icons md-15">apps</i>&nbsp;
+			{{stype}}
+		</button>
+		<button class="menubutton">
+			<i class="material-icons md-15">timelapse</i>&nbsp;
+			Time window:&nbsp;<input type='number' min="1" max="300" autofocus [(ngModel)]="shakeService.timeWindow">&nbsp;sec.
+		</button>
+		<button class="menubutton" (click)="menuStatus=0;endShake()">
+			<i class="material-icons md-15">arrow_back</i>&nbsp;
+			Back
+		</button>
+	</div>
+	<div id="M4" *ngSwitchCase="3">
+		<button class="menubutton" (click)="switchShake(shakeIndex)" [style.color]="selectShakeStatusColor(shakeIndex)">
+			<i class="material-icons md-15">apps</i>&nbsp;
+			{{shakeService.shakeTypes[shakeIndex]}}
+		</button>
+		<button class="menubutton">
+			<i class="material-icons md-15">timelapse</i>&nbsp;
+			Time window:&nbsp;<input type='number' min="1" max="300" [(ngModel)]="shakeService.timeWindow">&nbsp;sec.
+		</button>
+		<button class="menubutton">
+			<i class="material-icons md-15">update</i>&nbsp;
+			{{shakeService.timestamp | date: 'yyyy-MM-dd HH:mm:ss O'}}
+		</button>
+		<button class="menubutton" (click)="menuStatus=2;shakeIndex=-1;shakeService.closeConnection()">
+			<i class="material-icons md-15">arrow_back</i>&nbsp;
+			Back
+		</button>
 	</div>
 </div>

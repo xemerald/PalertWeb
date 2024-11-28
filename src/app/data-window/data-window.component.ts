@@ -6,9 +6,9 @@ import { StationsService } from '../services/stations.service';
 import { InfoWindowComponent } from '../infowindow.factory';
 
 @Component({
-    selector: 'app-data-window',
-    templateUrl: './data-window.component.html',
-    styleUrls: ['./data-window.component.css']
+	selector: 'app-data-window',
+	templateUrl: './data-window.component.html',
+	styleUrls: ['./data-window.component.css']
 })
 export class DataWindowComponent implements OnInit, OnDestroy, InfoWindowComponent {
 	@Input() data: any;
@@ -18,20 +18,20 @@ export class DataWindowComponent implements OnInit, OnDestroy, InfoWindowCompone
 	editFlag: boolean = false;
 	_station?: Station;
 
-    constructor(
-        private http: HttpClient,
+	constructor(
+		private http: HttpClient,
 		private stationsService: StationsService
-    ) { }
+	) { }
 
-    ngOnInit(): void {
-        this.index = this.data.index;
+	ngOnInit(): void {
+		this.index = this.data.index;
 		this.title = this.data.title;
 		this.stationsService.getStationByIndex(this.index).then(
 			result => this._station = result
 		);
-    }
-	
-    ngOnDestroy(): void {
+	}
+
+	ngOnDestroy(): void {
 		this._station = undefined;
 	}
 }

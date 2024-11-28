@@ -4,17 +4,17 @@ import { FocusMapService } from './map.service';
 import { FocusMarkerService } from './marker.service';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class PositionService {
 	private posWatcher: any;
 
-    constructor(
-        private mapService: FocusMapService,
-        private markerService: FocusMarkerService
-    ) { }
+	constructor(
+		private mapService: FocusMapService,
+		private markerService: FocusMarkerService
+	) { }
 
-    showPosition() {
+	showPosition() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -23,7 +23,7 @@ export class PositionService {
 						lng: position.coords.longitude
 					};
 					this.mapService.panMapTo(pos, 13);
-                    this.markerService.setPosMarkers(this.mapService.getNativeMap(), position);
+					this.markerService.setPosMarkers(this.mapService.getNativeMap(), position);
 				}, () => {
 					this.handleLocationError(true);
 				}, {timeout: 15000, maximumAge: 60000}
@@ -41,7 +41,7 @@ export class PositionService {
 							lat: position.coords.latitude,
 							lng: position.coords.longitude
 						};
-                        this.markerService.setPosMarkers(this.mapService.getNativeMap(), position);
+						this.markerService.setPosMarkers(this.mapService.getNativeMap(), position);
 					},() => {
 						this.handleLocationError(true);
 					}, {timeout: 15000, maximumAge: 60000}
