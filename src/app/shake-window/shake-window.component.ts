@@ -31,13 +31,16 @@ export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowCompon
 	private stationWebSocket!: WebSocket;
 
 	private levelColors: string[] = [
-		"#f0f0f0",
-		"#f0f0f0",
-		"#f0f0f0",
-		"#f0f0f0",
-		"#f0f0f0",
-		"#f0f0f0",
-		"#f0f0f0",
+		"#c0c0c0",
+		"#30ffcf",
+		"#8fff70",
+		"#bfff40",
+		"#efff10",
+		"#ffaf00",
+		"#ff5000",
+		"#ff2000",
+		"#df0000",
+		"#000000",
 	];
 
 	constructor(
@@ -48,11 +51,11 @@ export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowCompon
 		this.protocol = "station-shake-protocol";
 
 		this.groundMotions = [
-			{ valueType: 'Acc', value: 0, unit: 'gal' , color: '#c0c0c0' },
-			{ valueType: 'Vel', value: 0, unit: 'cm/s', color: '#c0c0c0' },
-			{ valueType: 'Dis', value: 0, unit: 'cm'  , color: '#c0c0c0' },
-			{ valueType: 'Sal', value: 0, unit: 'gal' , color: '#c0c0c0' },
-			{ valueType: 'Sas', value: 0, unit: 'gal' , color: '#c0c0c0' },
+			{ valueType: 'Acc', value: 0, unit: 'gal' , color: this.levelColors[0] },
+			{ valueType: 'Vel', value: 0, unit: 'cm/s', color: this.levelColors[0] },
+			{ valueType: 'Dis', value: 0, unit: 'cm'  , color: this.levelColors[0] },
+			{ valueType: 'Sal', value: 0, unit: 'gal' , color: this.levelColors[0] },
+			{ valueType: 'Sas', value: 0, unit: 'gal' , color: this.levelColors[0] },
 		];
 
 		this.readyFlag = false;
@@ -96,10 +99,12 @@ export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowCompon
 				if (!this.readyFlag)
 					this.readyFlag = true;
 			/* */
-				let value = new Float64Array(event.data);
+				let value = new Float64Array(event.data, 0, this.groundMotions.length + 1);
+				let level = new Uint8Array(event.data, 48);
 				this.timestamp = new Date(value[0] * 1000.0);
 				for (let i = 0, len = this.groundMotions.length; i < len; i++) {
 					this.groundMotions[i].value = value[i + 1];
+					this.groundMotions[i].color = this.levelColors[level[i]];
 				}
 			}
 		};
