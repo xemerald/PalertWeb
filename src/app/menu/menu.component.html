@@ -165,7 +165,7 @@
 		</button>
 	</div>
 	<div id="M4" *ngSwitchCase="3">
-		<button class="menubutton" (click)="switchShake(shakeIndex)" [style.color]="selectShakeStatusColor(shakeIndex)">
+		<button class="menubutton" (click)="switchShake(shakeIndex)" [ngStyle]="{'color': selectShakeStatusColor(shakeIndex)}">
 			<i class="material-icons md-15">apps</i>&nbsp;
 			{{shakeService.shakeTypes[shakeIndex]}}
 		</button>
