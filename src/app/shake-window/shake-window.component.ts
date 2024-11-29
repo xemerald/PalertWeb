@@ -45,8 +45,7 @@ export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowCompon
 	constructor(
 		private stationsService: StationsService
 	) {
-		// this.url = "ws://shake.p-alert.tw:9999";
-		this.url = "ws://127.0.0.1:9999";
+		this.url = "ws://shake.p-alert.tw:9999";
 		this.protocol = "station-shake-protocol";
 	/* */
 		this.groundMotions = [

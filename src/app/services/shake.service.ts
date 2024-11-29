@@ -31,8 +31,7 @@ export class ShakeService {
 		private markerService: FocusMarkerService,
 		private stationsService: StationsService
 	) {
-		// this.url = "ws://shake.p-alert.tw:9999";
-		this.url = "ws://127.0.0.1:9999";
+		this.url = "ws://shake.p-alert.tw:9999";
 		this.protocol = "map-shake-protocol";
 	}
 
