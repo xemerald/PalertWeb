@@ -20,11 +20,11 @@ import { Station } from '../station';
 	styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-	stations!: Observable<Station[]>;
-	menuSwitch: boolean = false;
-	menuStatus: number = 0;
-	shakeIndex: number = -1;
-	filterSwitch: boolean[] = [false, false, false];
+	public stations!: Observable<Station[]>;
+	public menuSwitch: boolean = false;
+	public menuPage: number = 0;
+	public shakeIndex: number = -1;
+	public filterSwitch: boolean[] = [false, false, false];
 
 	private searchTerms = new Subject<string>();
 
@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit {
  * @returns
  */
 	selectStationMarker(station: string): string {
-		if (this.menuStatus < 2) {
+		if (this.menuPage < 2) {
 			return this.markerService.getMarkersIcon(this.stationsService.getIndexByStationCode(station));
 		}
 		else {
@@ -167,15 +167,6 @@ export class MenuComponent implements OnInit {
  */
 	switchShake(n: number): void {
 		this.shakeService.startConnection(n);
-	}
-
-/**
- *
- * @param n
- * @returns
- */
-	selectShakeStatusColor(n: number): string {
-		return this.shakeService.getStatusColor(n);
 	}
 
 /**

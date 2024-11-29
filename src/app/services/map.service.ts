@@ -27,7 +27,7 @@ export interface MapService {
 }
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class FocusMapService implements MapService {
 	private currentService!: MapService;
@@ -46,11 +46,11 @@ export class FocusMapService implements MapService {
 	set mode(value: number) {
 		this.currentMode = value;
 		switch (value) {
-			case 0:
-				this.currentService = this.mapLeafletService;
-				break;
-			case 1:
-				this.currentService = this.mapGoogleService;
+		case 0:
+			this.currentService = this.mapLeafletService;
+			break;
+		case 1:
+			this.currentService = this.mapGoogleService;
 		}
 	}
 

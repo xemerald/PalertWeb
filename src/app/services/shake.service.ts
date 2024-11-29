@@ -13,7 +13,6 @@ export class ShakeService {
 	private url: string;
 	private protocol: string;
 	private mapWebSocket!: WebSocket;
-	private statusColor: string[] = ["", "", "", "", ""];
 
 	public timestamp: Date = new Date(0);
 	public timeWindow: number = 1;
@@ -60,21 +59,19 @@ export class ShakeService {
 
 		this.mapWebSocket.onopen = () => {
 		/* */
-			if ( this.timeWindow < 1 )
-				this.timeWindow = 1;
-			else if ( this.timeWindow > 300 )
-				this.timeWindow = 300;
+			this.timeWindow =
+				this.timeWindow < 1 ? 1 :
+				this.timeWindow > 300 ? 300 :
+				this.timeWindow;
 		/* */
 			this.stationsService.getStationExchange().then( result => {
 				result.tag = valueType.toString() + ":" + this.timeWindow.toString();
 				this.mapWebSocket.send(JSON.stringify(result));
 			});
-			this.statusColor[valueType] = "#00cc00"
 		}
 
 		this.mapWebSocket.onerror = () => {
 			this.mapWebSocket.close();
-			this.statusColor[valueType] = "#ff0000"
 		}
 
 		this.mapWebSocket.onmessage = (event) => {
@@ -105,13 +102,5 @@ export class ShakeService {
 	/* */
 		this.markerService.setMarkersVisbility(true, );
 		this.markerService.setMarkersIcon(undefined, ShakeIcon[0]);
-	/* */
-		for (let i = 0, len = this.statusColor.length; i < len; i++) {
-			this.statusColor[i] = "";
-		}
-	}
-
-	getStatusColor(valueType: number): string {
-		return this.statusColor[valueType];
 	}
 }

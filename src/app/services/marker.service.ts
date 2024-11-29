@@ -25,7 +25,7 @@ export interface MarkerService {
 }
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class FocusMarkerService implements MarkerService {
 	private currentService!: MarkerService;
@@ -38,11 +38,11 @@ export class FocusMarkerService implements MarkerService {
 	set mode(value: number) {
 		this.currentMode = value;
 		switch (value) {
-			case 0:
-				this.currentService = this.markerLeafletService;
-				break;
-			case 1:
-				this.currentService = this.markerGoogleService;
+		case 0:
+			this.currentService = this.markerLeafletService;
+			break;
+		case 1:
+			this.currentService = this.markerGoogleService;
 		}
 	}
 
@@ -53,165 +53,165 @@ export class FocusMarkerService implements MarkerService {
 		this.mode = 0;
 	}
 
-	/**
-	 *
-	 * @param map
-	 * @param viewContainerRef
-	 */
+/**
+ *
+ * @param map
+ * @param viewContainerRef
+ */
 	initialize(map: any, viewContainerRef: ViewContainerRef): void {
 		this.currentService.initialize(map, viewContainerRef);
 	}
 
-	/**
-	 *
-	 */
+/**
+ *
+ */
 	resetInfoWindow(): void {
 		this.currentService.resetInfoWindow();
 	}
 
-	/**
-	 *
-	 * @param map
-	 * @param lat
-	 * @param lng
-	 * @param title
-	 * @param icon
-	 * @returns
-	 */
+/**
+ *
+ * @param map
+ * @param lat
+ * @param lng
+ * @param title
+ * @param icon
+ * @returns
+ */
 	createMarker(map: any, lat: number, lng: number, title: string, icon: any): any {
 		return this.currentService.createMarker(map, lat, lng, title, icon);
 	}
 
-	/**
-	 *
-	 * @param map
-	 * @param marker
-	 * @param html
-	 */
+/**
+ *
+ * @param map
+ * @param marker
+ * @param html
+ */
 	openInfoWindow(map: any, marker: any, html: any): void {
 		this.currentService.openInfoWindow(map, marker, html);
 	}
 
-	/**
-	 *
-	 * @param map
-	 */
+/**
+ *
+ * @param map
+ */
 	bindShakeWindow(map: any): void {
 		this.currentService.bindShakeWindow(map);
 	}
 
-	/**
-	 *
-	 * @param map
-	 * @param icon
-	 * @param create
-	 */
+/**
+ *
+ * @param map
+ * @param icon
+ * @param create
+ */
 	genStationMarkers(map: any, icon: Object, create: boolean): void {
 		this.currentService.genStationMarkers(map, icon, create);
 	}
 
-	/**
-	 *
-	 * @param map
-	 * @param index
-	 * @returns
-	 */
+/**
+ *
+ * @param map
+ * @param index
+ * @returns
+ */
 	pickMarker(map: any, index: number): any {
 		return this.currentService.pickMarker(map, index);
 	}
 
-	/**
-	 *
-	 * @param index
-	 * @param icon
-	 */
+/**
+ *
+ * @param index
+ * @param icon
+ */
 	setMarkersIcon(index?: number, icon?: any): void {
 		this.currentService.setMarkersIcon(index, icon);
 	}
 
-	/**
-	 *
-	 * @param index
-	 * @returns
-	 */
+/**
+ *
+ * @param index
+ * @returns
+ */
 	getMarkersIcon(index?: number): string {
 		return this.currentService.getMarkersIcon(index);
 	}
 
-	/**
-	 *
-	 * @param index
-	 * @returns
-	 */
+/**
+ *
+ * @param index
+ * @returns
+ */
 	checkMarkersVisbility(index?: number): boolean {
 		return this.currentService.checkMarkersVisbility(index);
 	}
 
-	/**
-	 *
-	 * @param visibility
-	 * @param index
-	 * @returns
-	 */
+/**
+ *
+ * @param visibility
+ * @param index
+ * @returns
+ */
 	setMarkersVisbility(visibility: boolean, index?: number): number {
 		return this.currentService.setMarkersVisbility(visibility, index);
 	}
 
-	/**
-	 *
-	 * @returns
-	 */
+/**
+ *
+ * @returns
+ */
 	revertAllMarkersVisibility(): number {
 		return this.currentService.revertAllMarkersVisibility();
 	}
 
-	/**
-	 *
-	 * @param index
-	 */
+/**
+ *
+ * @param index
+ */
 	checkMarkersStatus(index?: number): boolean {
 		return this.currentService.checkMarkersStatus(index);
 	}
 
-	/**
-	 *
-	 * @param status
-	 * @param index
-	 * @returns
-	 */
+/**
+ *
+ * @param status
+ * @param index
+ * @returns
+ */
 	setMarkersStatus(status: boolean, index?: number): number {
 		return this.currentService.setMarkersStatus(status, index);
 	}
 
-	/**
-	 *
-	 * @param index
-	 */
+/**
+ *
+ * @param index
+ */
 	getMarkersTitle(index?: number): string[] {
 		return this.currentService.getMarkersTitle(index);
 	}
 
-	/**
-	 *
-	 * @param map
-	 * @param pos
-	 */
+/**
+ *
+ * @param map
+ * @param pos
+ */
 	setPosMarkers(map: any, pos: GeolocationPosition): void {
 		this.currentService.setPosMarkers(map, pos);
 	}
 
-	/**
-	 *
-	 * @param map
-	 */
+/**
+ *
+ * @param map
+ */
 	initialCluster(map: any): void {
 		this.currentService.initialCluster(map);
 	}
 
-	/**
-	 *
-	 * @param sw
-	 */
+/**
+ *
+ * @param sw
+ */
 	switchCluster(sw: boolean): void {
 		this.currentService.switchCluster(sw);
 	}

@@ -20,13 +20,13 @@
 		<span class="search-detail">{{station.serial}}&nbsp;&nbsp;{{station.area}}</span>
 	</button>
 </div>
-<div id="menu" class="controls panel" *ngIf="menuSwitch" [ngSwitch]="menuStatus">
-	<div id="M1" *ngSwitchCase="0">
-		<button class="menubutton" (click)="menuStatus=1">
+<div id="menu" class="controls panel" *ngIf="menuSwitch" [ngSwitch]="menuPage">
+	<div id="M1" *ngSwitchDefault>
+		<button class="menubutton" (click)="menuPage=1">
 			<i class="material-icons md-15">filter_list</i>&nbsp;
 			Filter
 		</button>
-		<button class="menubutton" (click)="menuStatus=2;startShake()">
+		<button class="menubutton" (click)="menuPage=2;startShake()">
 			<i class="material-icons md-15">map</i>&nbsp;
 			Shakemap
 		</button>
@@ -145,13 +145,13 @@
 					</td>
 				</tr>
 			</table>
-		<button class="menubutton" (click)="menuStatus=0;resetFilter(true);">
+		<button class="menubutton" (click)="menuPage=0;resetFilter(true);">
 			<i class="material-icons md-15">arrow_back</i>&nbsp;
 			Back
 		</button>
 	</div>
 	<div id="M3" *ngSwitchCase="2">
-		<button class="menubutton" (click)="menuStatus=3;shakeIndex=i;switchShake(i)" *ngFor="let stype of shakeService.shakeTypes; let i = index">
+		<button class="menubutton" (click)="menuPage=3;shakeIndex=i;switchShake(i)" *ngFor="let stype of shakeService.shakeTypes; let i = index">
 			<i class="material-icons md-15">apps</i>&nbsp;
 			{{stype}}
 		</button>
@@ -159,13 +159,13 @@
 			<i class="material-icons md-15">timelapse</i>&nbsp;
 			Time window:&nbsp;<input type='number' min="1" max="300" autofocus [(ngModel)]="shakeService.timeWindow">&nbsp;sec.
 		</button>
-		<button class="menubutton" (click)="menuStatus=0;endShake()">
+		<button class="menubutton" (click)="menuPage=0;endShake()">
 			<i class="material-icons md-15">arrow_back</i>&nbsp;
 			Back
 		</button>
 	</div>
 	<div id="M4" *ngSwitchCase="3">
-		<button class="menubutton" (click)="switchShake(shakeIndex)" [ngStyle]="{'color': selectShakeStatusColor(shakeIndex)}">
+		<button class="menubutton" (click)="switchShake(shakeIndex)">
 			<i class="material-icons md-15">apps</i>&nbsp;
 			{{shakeService.shakeTypes[shakeIndex]}}
 		</button>
@@ -177,7 +177,7 @@
 			<i class="material-icons md-15">update</i>&nbsp;
 			{{shakeService.timestamp | date: 'yyyy-MM-dd HH:mm:ss O'}}
 		</button>
-		<button class="menubutton" (click)="menuStatus=2;shakeIndex=-1;shakeService.closeConnection()">
+		<button class="menubutton" (click)="menuPage=2;shakeIndex=-1;shakeService.closeConnection()">
 			<i class="material-icons md-15">arrow_back</i>&nbsp;
 			Back
 		</button>

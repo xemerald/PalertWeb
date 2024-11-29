@@ -13,10 +13,10 @@ import { InfoWindowComponent } from '../infowindow.factory';
 export class DataWindowComponent implements OnInit, OnDestroy, InfoWindowComponent {
 	@Input() data: any;
 
-	index!: number;
-	title!: string;
-	editFlag: boolean = false;
-	_station?: Station;
+	public index!: number;
+	public title!: string;
+	public editFlag: boolean = false;
+	public _station?: Station;
 
 	constructor(
 		private http: HttpClient,

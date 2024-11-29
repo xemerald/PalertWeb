@@ -19,7 +19,8 @@ export class InfoWindowFactory {
 	createWindow(infoWindowItem: InfoWindowItem, viewContainerRef: ViewContainerRef): HTMLElement {
 		let div = document.createElement('div');
 
-		if (this.compRef) this.compRef.destroy();
+		if (this.compRef)
+			this.compRef.destroy();
 
 		this.compRef = viewContainerRef.createComponent(infoWindowItem.component);
 		this.compRef.instance.data = infoWindowItem.data;
@@ -33,6 +34,7 @@ export class InfoWindowFactory {
 	}
 
 	destroyWindow(): void {
-		if (this.compRef) this.compRef.destroy();
+		if (this.compRef)
+			this.compRef.destroy();
 	}
 }

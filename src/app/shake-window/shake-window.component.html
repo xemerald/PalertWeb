@@ -1,10 +1,10 @@
-<h3 [ngStyle]="{'color': statusColor}"><b>{{ title }}</b></h3>
+<h3><b>{{ title }}</b></h3>
 <h4 class="gm-type" *ngIf="!readyFlag"><b>Loading...</b></h4>
 <table *ngIf="readyFlag">
 	<tbody>
 		<tr *ngFor="let groundMotion of groundMotions">
 			<td class="gm-type">{{groundMotion.valueType}}.</td>
-			<td class="gm-value" [ngStyle]="{'background-color': groundMotion.color}">{{groundMotion.value | number:'.2-2'}} <span class="gm-unit">{{groundMotion.unit}}</span></td>
+			<td class="gm-value" [ngStyle]="{'background-color': groundMotion.bgcolor}">{{groundMotion.value | number:'.2-2'}} <span class="gm-unit">{{groundMotion.unit}}</span></td>
 		</tr>
 	</tbody>
 	<tfoot>

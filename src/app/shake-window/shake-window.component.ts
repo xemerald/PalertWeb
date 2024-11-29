@@ -7,7 +7,7 @@ export interface GroundMotion {
 	valueType: string;
 	value: number;
 	unit: string;
-	color: string;
+	bgcolor: string;
 };
 
 @Component({
@@ -18,19 +18,18 @@ export interface GroundMotion {
 export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowComponent {
 	@Input() data: any;
 
-	readyFlag: boolean;
-	statusColor: string = "#000000";
-	index!: number;
-	title!: string;
+	public readyFlag: boolean;
+	public index!: number;
+	public title!: string;
 
 	public groundMotions: GroundMotion[] = [];
-	public timestamp: Date = new Date();
+	public timestamp: Date = new Date(0);
 
 	private url: string;
 	private protocol: string;
 	private stationWebSocket!: WebSocket;
 
-	private levelColors: string[] = [
+	private readonly levelColors: string[] = [
 		"#c0c0c0",
 		"#30ffcf",
 		"#8fff70",
@@ -49,15 +48,15 @@ export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowCompon
 		// this.url = "ws://shake.p-alert.tw:9999";
 		this.url = "ws://127.0.0.1:9999";
 		this.protocol = "station-shake-protocol";
-
+	/* */
 		this.groundMotions = [
-			{ valueType: 'Acc', value: 0, unit: 'gal' , color: this.levelColors[0] },
-			{ valueType: 'Vel', value: 0, unit: 'cm/s', color: this.levelColors[0] },
-			{ valueType: 'Dis', value: 0, unit: 'cm'  , color: this.levelColors[0] },
-			{ valueType: 'Sal', value: 0, unit: 'gal' , color: this.levelColors[0] },
-			{ valueType: 'Sas', value: 0, unit: 'gal' , color: this.levelColors[0] },
+			{ valueType: 'Acc', value: 0, unit: 'gal' , bgcolor: this.levelColors[0] },
+			{ valueType: 'Vel', value: 0, unit: 'cm/s', bgcolor: this.levelColors[0] },
+			{ valueType: 'Dis', value: 0, unit: 'cm'  , bgcolor: this.levelColors[0] },
+			{ valueType: 'Sas', value: 0, unit: 'gal' , bgcolor: this.levelColors[0] },
+			{ valueType: 'Sal', value: 0, unit: 'gal' , bgcolor: this.levelColors[0] },
 		];
-
+	/* */
 		this.readyFlag = false;
 	}
 
@@ -80,31 +79,29 @@ export class ShakeWindowComponent implements OnInit, OnDestroy, InfoWindowCompon
 		this.stationWebSocket.onopen = () => {
 			this.stationsService.getStationCodeByIndex(this.index).then(
 				result => {
+					result = result + ":" + this.groundMotions.length.toString() + ":" + "1";
 					this.stationWebSocket.send(result);
 				}
 			);
-			this.statusColor = "#00cc00";
 			this.readyFlag = false;
 		};
 
 		this.stationWebSocket.onerror = () => {
 			this.stationWebSocket.close();
-			this.statusColor = "#ff0000";
 			this.readyFlag = false;
 		};
 
 		this.stationWebSocket.onmessage = (event) => {
 			if (event.data instanceof ArrayBuffer) {
 			/* */
-				if (!this.readyFlag)
-					this.readyFlag = true;
+				this.readyFlag = true;
 			/* */
 				let value = new Float64Array(event.data, 0, this.groundMotions.length + 1);
-				let level = new Uint8Array(event.data, 48);
+				let level = new Uint8Array(event.data, (this.groundMotions.length + 1) * 8);
 				this.timestamp = new Date(value[0] * 1000.0);
 				for (let i = 0, len = this.groundMotions.length; i < len; i++) {
 					this.groundMotions[i].value = value[i + 1];
-					this.groundMotions[i].color = this.levelColors[level[i]];
+					this.groundMotions[i].bgcolor = this.levelColors[level[i]];
 				}
 			}
 		};
